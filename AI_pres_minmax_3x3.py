@@ -48,6 +48,8 @@ def if_game_over(game_board):
     if(t):
         return values[TIE]
     
+    return None
+    
 def minmax(game_board,isMaximizing,turn):
     score = if_game_over(game_board)
     if(score==values[HUMAN] or score==values[AI] or score==values[TIE]):

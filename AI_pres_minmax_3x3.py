@@ -1,5 +1,7 @@
 import sys
+import tkinter as tk
 
+#global veriables
 game_Board = []
 init_game_board = [['','',''],['','',''],['','','']]
 game_Board = init_game_board
@@ -9,6 +11,8 @@ TIE = 'tie'
 values = {'X':1,'O':-1,'tie':0}
 maximizing_player = AI
 visited_nodes=0
+
+
 def count_visited():
     global visited_nodes
     visited_nodes+=1
@@ -45,7 +49,6 @@ def if_game_over(game_board):
         return values[TIE]
     
 def minmax(game_board,isMaximizing,turn):
-    print(visited_nodes)
     score = if_game_over(game_board)
     if(score==values[HUMAN] or score==values[AI] or score==values[TIE]):
         return score
@@ -71,4 +74,6 @@ def minmax(game_board,isMaximizing,turn):
         return bestScore
 
 print(minmax(init_game_board, maximizing_player==AI, AI))
+
+##driver code / GUI
 

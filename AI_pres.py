@@ -6,6 +6,7 @@ AI = 'O'
 HUMAN = 'X'
 TIE = 'tie'
 values = {'X':1,'O':-1,'tie':0}
+maximizing_player = HUMAN
 
 def if_game_over(game_board):
     #Diagonal values check
@@ -39,16 +40,16 @@ def if_game_over(game_board):
         return values[TIE]
     
 def minmax(game_board,isMaximizing,turn):
+    score = if_game_over(game_board)
+    if(score==values[HUMAN] or score==values[AI] or score==values[TIE]):
+        return score
     if(isMaximizing):
         bestScore = 1-sys.maxsize
         for i in range(0,3):
             for j in range(0,3):
                 if(game_board[i][j]==''):
                     game_board[i][j]=turn
-                    score = if_game_over(game_board)
-                    if(score==values[HUMAN] or score==values[AI] or score==values[TIE]):
-                        return score
-                    return max(bestScore,minmax(game_board,False,AI))
+                    return max(bestScore,minmax(game_board,maximizing_player==AI,AI))
     else:
         bestScore = sys.maxsize
         for i in range(0,3):
@@ -56,9 +57,7 @@ def minmax(game_board,isMaximizing,turn):
                 if(game_board[i][j]==''):
                     game_board[i][j]=turn
                     score = if_game_over(game_board)
-                    if(score==1 or score==-1 or score==0):
-                        return score
-                    return min(bestScore,minmax(game_board,False,HUMAN))
+                    return min(bestScore,minmax(game_board,maximizing_player==HUMAN,HUMAN))
 
 print(minmax(init_game_board, False, AI))
 

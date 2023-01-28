@@ -7,6 +7,7 @@ HUMAN = 'X'
 TIE = 'tie'
 values = {'X':1,'O':-1,'tie':0}
 maximizing_player = HUMAN
+visted_nodes=0
 
 def if_game_over(game_board):
     #Diagonal values check
@@ -49,15 +50,20 @@ def minmax(game_board,isMaximizing,turn):
             for j in range(0,3):
                 if(game_board[i][j]==''):
                     game_board[i][j]=turn
-                    return max(bestScore,minmax(game_board,maximizing_player==AI,AI))
+                    bestScore = max(bestScore,minmax(game_Board,maximizing_player==AI,AI))
+                    visted_nodes+=visted_nodes
+                    game_board[i][j]=''
+        return max(bestScore,minmax(game_board,maximizing_player==AI,AI))
     else:
         bestScore = sys.maxsize
         for i in range(0,3):
             for j in range(0,3):
                 if(game_board[i][j]==''):
                     game_board[i][j]=turn
-                    score = if_game_over(game_board)
-                    return min(bestScore,minmax(game_board,maximizing_player==HUMAN,HUMAN))
+                    bestScore = min(bestScore,minmax(game_Board,maximizing_player==AI,AI))
+                    visted_nodes+=visted_nodes
+                    game_board[i][j]=''
+        return min(bestScore,minmax(game_board,maximizing_player==AI,AI))
 
 print(minmax(init_game_board, False, AI))
 

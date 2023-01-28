@@ -1,5 +1,5 @@
 import sys
-import tkinter as tk
+from tkinter import *
 
 #global veriables
 game_Board = []
@@ -76,4 +76,3 @@ def minmax(game_board,isMaximizing,turn):
 print(minmax(init_game_board, maximizing_player==AI, AI))
 
 ##driver code / GUI
-

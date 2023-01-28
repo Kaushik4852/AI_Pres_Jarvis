@@ -1,4 +1,5 @@
 import sys
+
 game_Board = []
 init_game_board = [['','',''],['','',''],['','','']]
 game_Board = init_game_board
@@ -6,7 +7,7 @@ AI = 'O'
 HUMAN = 'X'
 TIE = 'tie'
 values = {'X':1,'O':-1,'tie':0}
-maximizing_player = HUMAN
+maximizing_player = AI
 visited_nodes=0
 def count_visited():
     global visited_nodes
@@ -44,6 +45,7 @@ def if_game_over(game_board):
         return values[TIE]
     
 def minmax(game_board,isMaximizing,turn):
+    print(visited_nodes)
     score = if_game_over(game_board)
     if(score==values[HUMAN] or score==values[AI] or score==values[TIE]):
         return score
@@ -56,7 +58,7 @@ def minmax(game_board,isMaximizing,turn):
                     bestScore = max(bestScore,minmax(game_Board,maximizing_player==AI,AI))
                     count_visited()
                     game_board[i][j]=''
-        return max(bestScore,minmax(game_board,maximizing_player==AI,AI))
+        return bestScore
     else:
         bestScore = sys.maxsize
         for i in range(0,3):
@@ -66,7 +68,7 @@ def minmax(game_board,isMaximizing,turn):
                     bestScore = min(bestScore,minmax(game_Board,maximizing_player==AI,AI))
                     count_visited()
                     game_board[i][j]=''
-        return min(bestScore,minmax(game_board,maximizing_player==AI,AI))
+        return bestScore
 
 print(minmax(init_game_board, maximizing_player==AI, AI))
 

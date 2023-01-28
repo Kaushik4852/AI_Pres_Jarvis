@@ -51,7 +51,7 @@ def minmax(game_board,isMaximizing,turn):
                 if(game_board[i][j]==''):
                     game_board[i][j]=turn
                     bestScore = max(bestScore,minmax(game_Board,maximizing_player==AI,AI))
-                    visted_nodes+=visted_nodes
+                    visted_nodes+=1
                     game_board[i][j]=''
         return max(bestScore,minmax(game_board,maximizing_player==AI,AI))
     else:
@@ -61,9 +61,9 @@ def minmax(game_board,isMaximizing,turn):
                 if(game_board[i][j]==''):
                     game_board[i][j]=turn
                     bestScore = min(bestScore,minmax(game_Board,maximizing_player==AI,AI))
-                    visted_nodes+=visted_nodes
+                    visted_nodes+=1
                     game_board[i][j]=''
         return min(bestScore,minmax(game_board,maximizing_player==AI,AI))
 
-print(minmax(init_game_board, False, AI))
+print(minmax(init_game_board, maximizing_player==AI, AI))
 
